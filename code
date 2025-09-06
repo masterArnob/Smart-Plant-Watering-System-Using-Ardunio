@@ -1,0 +1,48 @@
+#include <DHT.h>
+#include <Servo.h>
+//DHT Sensor library by adafruit
+
+#define SOIL_PIN A0
+#define RELAY_PIN 7
+#define DHT_PIN 4
+#define DHT_TYPE DHT11
+#define TRIG_PIN 9
+#define ECHO_PIN 10
+#define SERVO_PIN 5
+
+DHT dht(DHT_PIN, DHT_TYPE);
+Servo gate;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(RELAY_PIN, OUTPUT);
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+  gate.attach(SERVO_PIN);
+  dht.begin();
+}
+
+void loop() {
+
+  int soil = analogRead(SOIL_PIN);
+  if (soil > 600) digitalWrite(RELAY_PIN, HIGH); 
+  else digitalWrite(RELAY_PIN, LOW);              
+
+
+  Serial.print("Temp: ");
+  Serial.print(dht.readTemperature());
+  Serial.print(" C  Hum: ");
+  Serial.println(dht.readHumidity());
+
+
+  long dur, dist;
+  digitalWrite(TRIG_PIN, LOW); delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH); delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+  dur = pulseIn(ECHO_PIN, HIGH);
+  dist = dur * 0.034 / 2;
+  
+  if (dist > 0 && dist < 50) gate.write(90); 
+  else gate.write(0);                       
+
+  delay(2000); 
