@@ -1,92 +1,96 @@
-### Smart Plant Watering System Using Ardunio
+# 🌱 Smart Plant Watering System Using Arduino
 
-### Objectives
+<p align="center">
+  <img src="https://img.shields.io/badge/Arduino-Uno-blue?logo=arduino&logoColor=white" alt="Arduino">
+  <img src="https://img.shields.io/badge/Language-C++-green?logo=c%2B%2B&logoColor=white" alt="C++">
+  <img src="https://img.shields.io/badge/Platform-IoT-lightgrey?logo=internetofthings&logoColor=white" alt="IoT">
+  <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License">
+</p>
+
+<p align="center">
+  A modern IoT-based smart irrigation & monitoring system powered by Arduino 🌿💧
+</p>
+
+---
+
+## 📑 Table of Contents
+- [🎯 Objectives](#-objectives)  
+- [🛠️ Components](#️-components)  
+- [🔌 Wire Connections](#-wire-connections)  
+- [⚙️ Project Setup](#️-project-setup)  
+- [💻 Code](#-code)  
+
+---
+
+## 🎯 Objectives
 This system will:
+- 🌱 **Auto-irrigation** based on soil moisture  
+- 💧 **Water flow monitoring**  
+- 🌡️ **Environment logging** (temperature & humidity)  
+- 🚪 **Smart gate automation** using ultrasonic detection  
 
-Turn pump ON/OFF automatically based on soil moisture.
+---
 
-Measure water flow rate.
+## 🛠️ Components
+| Component | Purpose |
+|-----------|---------|
+| Arduino Uno | Main microcontroller |
+| Ultrasonic Sensor | Gate automation, distance detection |
+| Soil Moisture Sensor | Irrigation control |
+| Water Flow Sensor | Measure water usage |
+| DHT11 | Temperature & humidity logging |
+| Servo Motor | Gate control |
+| Mini Water Pump | Irrigation |
+| Relay Module | Pump switching |
+| Breadboard + Jumper Wires | Circuit connections |
 
-Log temperature & humidity.
+---
 
-Open/close gate automatically with ultrasonic detection.
+## 🔌 Wire Connections
 
-### Components
-Arduino Uno
+### Soil Moisture Sensor
+- VCC → 5V  
+- GND → GND  
+- AO → A0  
 
-Ultrasonic sensor (for gate automation, distance detection)
+### Ultrasonic Sensor (HC-SR04)
+- VCC → 5V  
+- GND → GND  
+- Trig → D8  
+- Echo → D9  
 
-Soil moisture sensor (for irrigation)
+### DHT11 Sensor
+- VCC → 5V  
+- GND → GND  
+- Data → D2 *(10k pull-up recommended)*  
 
-Water flow sensor (to measure water usage)
+### Servo Motor
+- VCC (Red) → 5V  
+- GND (Brown/Black) → GND  
+- Signal (Orange/Yellow) → D6  
 
-DHT11 (temperature & humidity logging)
+### Water Flow Sensor (YF-S201 or similar)
+- Red (VCC) → 5V  
+- Black (GND) → GND  
+- Yellow (Signal) → D3  
 
-Servo motor (for gate)
+### Relay Module + Pump
+- Relay VCC → 5V  
+- Relay GND → GND  
+- Relay IN → D7  
+- Pump → Connected via relay to external power (5V/9V depending on pump)  
 
-Mini water pump (for irrigation)
+---
 
-Relay module (to control pump safely)
+## ⚙️ Project Setup
+<p align="center">
+  <img src="/assets/ardunio.jpeg" alt="Arduino Setup" width="500">
+</p>
 
-Breadboard + jumper wires
+---
 
-### Wire Connections
-1. Soil Moisture Sensor
-
-VCC → 5V
-
-GND → GND
-
-AO (Analog Out) → A0
-
-2. Ultrasonic Sensor (HC-SR04)
-
-VCC → 5V
-
-GND → GND
-
-Trig → D8
-
-Echo → D9
-
-3. DHT11 Sensor
-
-VCC → 5V
-
-GND → GND
-
-Data → D2 (with 10k pull-up resistor recommended)
-
-4. Servo Motor
-
-VCC (Red) → 5V
-
-GND (Brown/Black) → GND
-
-Signal (Orange/Yellow) → D6
-
-5. Water Flow Sensor (YF-S201 or similar)
-
-Red (VCC) → 5V
-
-Black (GND) → GND
-
-Yellow (Signal) → D3
-
-6. Relay Module + Water Pump
-
-Relay VCC → 5V
-
-Relay GND → GND
-
-Relay IN → D7
-
-Pump connected via relay to external power (e.g. 5V/9V supply depending on pump rating).
-
-### Projct Setup
-![ardunio](/assets/ardunio.jpeg)
-### Code
-```
+## 💻 Code
+```cpp
 #include <Servo.h>
 #include <DHT.h>
 
@@ -179,5 +183,3 @@ void loop() {
 
   delay(500);
 }
-
-```
