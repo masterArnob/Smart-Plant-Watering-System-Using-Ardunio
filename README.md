@@ -15,11 +15,12 @@
 ---
 
 ## 📑 Table of Contents
-- [🎯 Objectives](#-objectives)
-- [🛠️ Components](#-components)
-- [🔌 Wire Connections](#-wire-connections)
-- [⚙️ Project Setup](#-project-setup)
-- [💻 Code](#-code)
+👉 [🎯 Objectives](#-objectives)  
+👉 [🛠️ Components](#-components)  
+👉 [🔌 Wire Connections](#-wire-connections)  
+👉 [⚙️ Project Setup](#-project-setup)  
+👉 [💻 Code](#-code)  
+
 
 
 ---
