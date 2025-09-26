@@ -1,5 +1,16 @@
 ### Smart Plant Watering System Using Ardunio
 
+### Objectives
+This system will:
+
+Turn pump ON/OFF automatically based on soil moisture.
+
+Measure water flow rate.
+
+Log temperature & humidity.
+
+Open/close gate automatically with ultrasonic detection.
+
 ### Components
 Arduino Uno
 
