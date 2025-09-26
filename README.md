@@ -1,1 +1,99 @@
-# embedded-lab-project-code
+### Smart Plant Watering System Using Ardunio
+
+
+### Code
+```
+#include <Servo.h>
+#include <DHT.h>
+
+#define DHTPIN 2
+#define DHTTYPE DHT11
+#define MOISTURE_PIN A0
+#define TRIG 8
+#define ECHO 9
+#define RELAY 7
+#define SERVO_PIN 6
+#define FLOW_SENSOR 3
+
+Servo gateServo;
+DHT dht(DHTPIN, DHTTYPE);
+
+volatile int flowCount = 0;
+unsigned long oldTime = 0;
+
+void flowISR() {
+  flowCount++;
+}
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(MOISTURE_PIN, INPUT);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  pinMode(RELAY, OUTPUT);
+
+  gateServo.attach(SERVO_PIN);
+  gateServo.write(0);  // Gate closed
+
+  dht.begin();
+
+  pinMode(FLOW_SENSOR, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(FLOW_SENSOR), flowISR, RISING);
+}
+
+void loop() {
+  // 🌱 Soil Moisture Reading
+  int moisture = analogRead(MOISTURE_PIN);
+  Serial.print("Soil Moisture: ");
+  Serial.println(moisture);
+
+  // 🌡️ Temperature & Humidity
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  Serial.print("Temp: "); Serial.print(t);
+  Serial.print(" °C  Humidity: "); Serial.println(h);
+
+  // 💧 Water Pump Control
+  if (moisture < 500) {   // Adjust threshold
+    digitalWrite(RELAY, LOW);  // Pump ON
+    Serial.println("Pump ON");
+  } else {
+    digitalWrite(RELAY, HIGH); // Pump OFF
+    Serial.println("Pump OFF");
+  }
+
+  // 🚪 Ultrasonic Gate Control
+  long duration, distance;
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+  duration = pulseIn(ECHO, HIGH);
+  distance = duration * 0.034 / 2;
+
+  if (distance < 20) {
+    gateServo.write(90);   // Open gate
+    Serial.println("Gate Open");
+  } else {
+    gateServo.write(0);    // Close gate
+    Serial.println("Gate Closed");
+  }
+
+  // ⏱️ Flow Sensor Measurement
+  if ((millis() - oldTime) > 1000) {
+    detachInterrupt(digitalPinToInterrupt(FLOW_SENSOR));
+    float flowRate = (flowCount / 7.5); // L/min (depends on sensor)
+    Serial.print("Flow Rate: ");
+    Serial.print(flowRate);
+    Serial.println(" L/min");
+    flowCount = 0;
+    oldTime = millis();
+    attachInterrupt(digitalPinToInterrupt(FLOW_SENSOR), flowISR, RISING);
+  }
+
+  delay(500);
+}
+
+```
