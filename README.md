@@ -1,6 +1,78 @@
 ### Smart Plant Watering System Using Ardunio
 
-### Setup
+### Components
+Arduino Uno
+
+Ultrasonic sensor (for gate automation, distance detection)
+
+Soil moisture sensor (for irrigation)
+
+Water flow sensor (to measure water usage)
+
+DHT11 (temperature & humidity logging)
+
+Servo motor (for gate)
+
+Mini water pump (for irrigation)
+
+Relay module (to control pump safely)
+
+Breadboard + jumper wires
+
+### Wire Connections
+1. Soil Moisture Sensor
+
+VCC → 5V
+
+GND → GND
+
+AO (Analog Out) → A0
+
+2. Ultrasonic Sensor (HC-SR04)
+
+VCC → 5V
+
+GND → GND
+
+Trig → D8
+
+Echo → D9
+
+3. DHT11 Sensor
+
+VCC → 5V
+
+GND → GND
+
+Data → D2 (with 10k pull-up resistor recommended)
+
+4. Servo Motor
+
+VCC (Red) → 5V
+
+GND (Brown/Black) → GND
+
+Signal (Orange/Yellow) → D6
+
+5. Water Flow Sensor (YF-S201 or similar)
+
+Red (VCC) → 5V
+
+Black (GND) → GND
+
+Yellow (Signal) → D3
+
+6. Relay Module + Water Pump
+
+Relay VCC → 5V
+
+Relay GND → GND
+
+Relay IN → D7
+
+Pump connected via relay to external power (e.g. 5V/9V supply depending on pump rating).
+
+### Projct Setup
 ![ardunio](/assets/ardunio.jpeg)
 ### Code
 ```
