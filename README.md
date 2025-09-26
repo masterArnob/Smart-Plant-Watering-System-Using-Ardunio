@@ -1,4 +1,5 @@
-# 🌱 Smart Plant Watering System Using Arduino
+<h1 align="center">🌱 Smart Plant Watering System Using Arduino</h1>
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/Arduino-Uno-blue?logo=arduino&logoColor=white" alt="Arduino">
