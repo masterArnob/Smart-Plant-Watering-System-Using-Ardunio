@@ -1,6 +1,7 @@
 ### Smart Plant Watering System Using Ardunio
 
-
+### Setup
+![ardunio](/assets/ardunio.jpeg)
 ### Code
 ```
 #include <Servo.h>
