@@ -88,7 +88,7 @@ This system will:
 
 ## ⚙️ Project Setup
 <p align="center">
-  <img src="/assets/ardunio.jpeg" alt="Arduino Setup" width="500">
+  <img src="/assets/components.jpg" alt="Arduino Setup" width="500">
 </p>
 
 ---
