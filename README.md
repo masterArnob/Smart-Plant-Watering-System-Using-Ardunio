@@ -122,6 +122,7 @@ DHT dht(DHTPIN, DHTTYPE);
 volatile int flowCount = 0;
 unsigned long oldTime = 0;
 
+// Flow sensor interrupt
 void flowISR() {
   flowCount++;
 }
@@ -135,34 +136,37 @@ void setup() {
   pinMode(RELAY, OUTPUT);
 
   gateServo.attach(SERVO_PIN);
-  gateServo.write(0);  // Gate closed
+  gateServo.write(0);  // Gate closed initially
 
   dht.begin();
 
   pinMode(FLOW_SENSOR, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(FLOW_SENSOR), flowISR, RISING);
+
+  digitalWrite(RELAY, HIGH); // Make sure pump is OFF at start
 }
 
 void loop() {
   // 🌱 Soil Moisture Reading
   int moisture = analogRead(MOISTURE_PIN);
   Serial.print("Soil Moisture: ");
-  Serial.println(moisture);
+  Serial.print(moisture);
 
-  // 🌡️ Temperature & Humidity
+  // 💧 Pump Control (adjust threshold as needed)
+  // Dry soil = high value (~800+), Wet = low (~300)
+  if (moisture > 500) {   // Soil is dry → Pump ON
+    digitalWrite(RELAY, LOW);   // Active LOW relay → Pump ON
+    Serial.println(" -> Dry, Pump ON");
+  } else {
+    digitalWrite(RELAY, HIGH);  // Soil is wet → Pump OFF
+    Serial.println(" -> Wet, Pump OFF");
+  }
+
+  // 🌡 Temperature & Humidity
   float h = dht.readHumidity();
   float t = dht.readTemperature();
   Serial.print("Temp: "); Serial.print(t);
   Serial.print(" °C  Humidity: "); Serial.println(h);
-
-  // 💧 Water Pump Control
-  if (moisture < 500) {   // Adjust threshold
-    digitalWrite(RELAY, LOW);  // Pump ON
-    Serial.println("Pump ON");
-  } else {
-    digitalWrite(RELAY, HIGH); // Pump OFF
-    Serial.println("Pump OFF");
-  }
 
   // 🚪 Ultrasonic Gate Control
   long duration, distance;
@@ -182,10 +186,10 @@ void loop() {
     Serial.println("Gate Closed");
   }
 
-  // ⏱️ Flow Sensor Measurement
+  // ⏱ Flow Sensor Measurement
   if ((millis() - oldTime) > 1000) {
     detachInterrupt(digitalPinToInterrupt(FLOW_SENSOR));
-    float flowRate = (flowCount / 7.5); // L/min (depends on sensor)
+    float flowRate = (flowCount / 7.5); // L/min (depends on sensor calibration)
     Serial.print("Flow Rate: ");
     Serial.print(flowRate);
     Serial.println(" L/min");
@@ -196,3 +200,4 @@ void loop() {
 
   delay(500);
 }
+```
