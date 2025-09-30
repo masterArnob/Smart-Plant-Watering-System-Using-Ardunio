@@ -89,7 +89,7 @@ This system will:
 ## ⚙️ Project Setup
 <p align="center">
   <img src="/assets/components.jpg" alt="Arduino Setup" width="500">
-   <img src="/assets/prject_showcase.gif" alt="Arduino Setup" width="500">
+   <img src="/assets/project_showcase.gif" alt="Arduino Setup" width="500">
 </p>
 
 ---
