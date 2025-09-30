@@ -92,8 +92,12 @@ This system will:
 
 </p>
 
-   <img src="/assets/project_showcase.gif" alt="Arduino Setup" width="500">
+<div class="display-flex justify-content-center align-items-center">
+     <img src="/assets/project_showcase.gif" alt="Arduino Setup" width="500">
    <img src="/assets/Serial_monitor.gif" alt="Arduino Setup" width="500">
+</div>
+
+
    
 
 ---
