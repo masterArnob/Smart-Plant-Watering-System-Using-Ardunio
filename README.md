@@ -94,7 +94,7 @@ This system will:
 
 <div class="display-flex justify-content-center align-items-center">
      <img src="/assets/project_showcase.gif" alt="Arduino Setup" width="450">
-   <img src="/assets/Serial_monitor.gif" alt="Arduino Setup" width="450">
+   <img src="/assets/Serial_monitor.gif" alt="Arduino Setup" width="400">
 </div>
 
 
